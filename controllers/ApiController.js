@@ -3,7 +3,7 @@ const axios = require (`../helpers/axios`)
 class ApiController {
 
   static search(req, res, next) {
-    console.log(req.query.q);
+    console.log(req.query.q, "#################################################################");
     axios.get(`/music?q=${req.query.q}`, {headers: {"x-happi-key" : process.env.APIKEY}})
       .then(data=>{
         console.log(data.data.result);
@@ -26,6 +26,7 @@ class ApiController {
   }
 
   static searchAlbum (req, res, next) {
+    console.log(req.query.id, req.query.id2, "############################################################################");
     axios.get(`/music/artists/${req.query.id}/albums/${req.query.id2}/tracks`, {headers: {"x-happi-key" : process.env.APIKEY}})
       .then(data=>{
         console.log(data.data.result);

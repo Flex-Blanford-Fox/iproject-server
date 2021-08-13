@@ -21,7 +21,7 @@ function authentication (req, res, next){
     }
 }
 
-function taskAuthorization (req, res, next){
+function authorization (req, res, next){
     // console.log(req.params.id);
     Task.findByPk(req.params.id)
         .then(data=>{
@@ -41,4 +41,4 @@ function taskAuthorization (req, res, next){
         })
 }
 
-module.exports = {authentication, taskAuthorization}
+module.exports = {authentication, authorization}

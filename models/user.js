@@ -1,4 +1,5 @@
 'use strict';
+const {hashPassword} = require (`../helpers/bcrypt`)
 const {
   Model
 } = require('sequelize');
@@ -19,6 +20,11 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     password: DataTypes.STRING
   }, {
+    hooks:{
+      beforeCreate(instance, options) {
+        instance.password = hashPassword(instance.password)
+      }
+    },
     sequelize,
     modelName: 'User',
   });

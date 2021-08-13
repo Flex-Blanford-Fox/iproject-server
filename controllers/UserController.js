@@ -1,39 +1,39 @@
 const { comparePassword } = require("../helpers/bcrypt")
 const { generateToken } = require("../helpers/jwt")
-// const {User,Task} = require(`../models/index`)
+const {User} = require(`../models/index`)
 
 class UserController{
 
-    // static register (req, res, next){
-    //     let {name, email, password} = req.body
-    //     User.create({name, email, password})
-    //         .then(data=>{
-    //             res.status(200).json({name:data.name, email:data.email})
-    //         })
-    //         .catch(err=>{
-    //             next(err)
-    //         })
-    // }
+    static register (req, res, next){
+        let {name, email, password} = req.body
+        User.create({name, email, password})
+            .then(data=>{
+                res.status(200).json({name:data.name, email:data.email})
+            })
+            .catch(err=>{
+                next(err)
+            })
+    }
 
-    // static login (req, res, next){
-    //     let {email, password} = req.body
-    //     User.findOne({where:{email}})
-    //         .then(data=>{
-    //             if(!data){
-    //                 throw {name:"Username/Password Salah"}
-    //             } else {
-    //                 if(!comparePassword(password, data.password)){
-    //                     throw {name:"Username/Password Salah"}
-    //                 } else {
-    //                     let token = generateToken({id:data.id, name:data.name, email:data.email})
-    //                     res.status(201).json({access_token: token})
-    //                 }
-    //             }
-    //         })
-    //         .catch(err=>{
-    //             next(err)
-    //         })
-    // }
+    static login (req, res, next){
+        let {email, password} = req.body
+        User.findOne({where:{email}})
+            .then(data=>{
+                if(!data){
+                    throw {name:"Username/Password Salah"}
+                } else {
+                    if(!comparePassword(password, data.password)){
+                        throw {name:"Username/Password Salah"}
+                    } else {
+                        let token = generateToken({id:data.id, name:data.name, email:data.email})
+                        res.status(201).json({access_token: token})
+                    }
+                }
+            })
+            .catch(err=>{
+                next(err)
+            })
+    }
 
     // static googleLogin(req, res, next){
     //     const {OAuth2Client} = require('google-auth-library');
